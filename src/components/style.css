@@ -1,0 +1,26 @@
+.column1{
+	font-size:  20px;
+	width: 200px;
+	float: left;
+}
+.column2{
+	width: 400px;
+	float: left;
+}
+
+.clearFloat{
+	clear: float;
+}
+.row{
+	margin-bottom: 5px;
+}
+
+.row:after{
+	content: " ";
+	clear: both;
+	display: table;
+}
+
+.canvas{
+	border: 1px solid black;
+}
