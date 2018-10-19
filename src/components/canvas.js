@@ -4,9 +4,9 @@ import './style.css'
 class Canvas extends Component{
 	constructor(props){
 		super(props);
-		this.drawFlightPath = this.drawFlightPath.bind(this);
+		this.addPointsToState = this.addPointsToState.bind(this);
 		this.saveFlightPath = this.saveFlightPath.bind(this);
-		this.getNewPath = this.getNewPath.bind(this);	
+		this.clearCanvas = this.clearCanvas.bind(this);	
 		this.state={
 			points:[]
 		}
@@ -16,55 +16,62 @@ class Canvas extends Component{
 	// 		points:[]
 	// 	});
 	// }
-	// componentDidMount(e){
-	// 	//debugger;
-	// 	const ctx = this.refs.canvas.getContext('2d');
-	// 	 this.setState({
-	// 	 	points: this.state.points.concat({ x: e.nativeEvent.offsetX, y:e.nativeEvent.offsetY })
-	// 	});
-	// }
-	saveFlightPath()
-	{
+	componentDidMount(){
+		//debugger;
 		
+	}
+	saveFlightPath()
+	{		
 		this.props.OnSave(this.state.points);
 	}
-	getNewPath()
+	clearCanvas()
 	{
-		this.setState({point:[]});
-		//this.props.NewPlan(this.state.points)
+		console.log("jhj");		
+		this.refs.canvas.getContext("2d").clearRect(0,0,400,400);
+		this.setState({
+			points: []
+		});
 	}
-	drawFlightPath(e)
-	{		
+	addPointsToState(e){
 		this.setState({
 			points: this.state.points.concat({ x: e.nativeEvent.offsetX, y:e.nativeEvent.offsetY })
 		});
 		console.log("canvas coord: "+e, e.nativeEvent.offsetX, e.nativeEvent.offsetY);
 		console.log(this);
-		var points = this.state.points;	
-		if(points.length>1)
-		{//debugger;
-			const canv = this.refs.canvas;
-			const context = canv.getContext("2d");
-			for(let i=0;i<points.length-1; i++)
-			{
-				context.moveTo(points[i].x, points[i].y);
-				context.lineTo(points[i+1].x, points[i+1].y);
-				context.stroke();
-			}
-		}
 	}
 	render()
 	{
+		if(this.refs.canvas){
+			console.log("if cond")
+			this.refs.canvas.getContext("2d").clearRect(0,0,400,400);
+		}
+			
+		
+		console.log("render: ");
+		console.log(this.state.points);
+		if(this.state.points.length>1)
+		{//debugger;
+			const canv = this.refs.canvas;
+			const context = canv.getContext("2d");
+			for(let i=0;i<this.state.points.length-1; i++)
+			{
+				context.moveTo(this.state.points[i].x, this.state.points[i].y);
+				context.lineTo(this.state.points[i+1].x, this.state.points[i+1].y);
+				context.stroke();
+			}
+		}	
 		return(
 			<div>
 				<button id="btnSave" value="Save" onClick={this.saveFlightPath}>Save</button>
-				<button id="btnStart" value="Start" onClick={this.getNewPath}>Start New Plan</button>		
+				<button id="btnStart" value="Start" onClick={this.clearCanvas}>Start New Plan</button>		
 				<canvas ref="canvas" className="canvas" id="myCanvas" width="400" height="400" 
-				onClick={e=>this.drawFlightPath(e)}></canvas>	
+				onClick={e=>this.addPointsToState(e)}></canvas>	
 					
 			</div>
 		);
 	}
 };
+
+
 
 export default Canvas
