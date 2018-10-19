@@ -9,14 +9,13 @@ class Index extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			planList:[]		
+			planList:[],
+			currentPlan:[]	
 		};
 		this.savePlan = this.savePlan.bind(this);
-		this.createNewPlan = this.createNewPlan.bind(this);	
+		this.renderPlan = this.renderPlan.bind(this);
 	}
-	componentWillMount(){
-
-	}
+	
 	savePlan(val){
 		var name = prompt("Enter Plan Name:");
 		console.log("canvas values are: ");
@@ -25,20 +24,19 @@ class Index extends Component{
 			planList: this.state.planList.concat({ plan: val, planName:name })
 		});		
 	}
-	createNewPlan(val){
-		this.setState({
-			planList: this.state.planList.concat({ plan: val })
-		});	
+	
+	renderPlan(val){
+		console.log("indexjs plan coordinates: ");
+		console.log(val);
+		this.setState({currentPlan:val});
 	}
 	render()
 	{
 		return(
 			<div>
 				Hello Guest, This is a Flight Plan. 
-				<div className="column1"><Plans PlanItems={this.state.planList}/></div>
-				<div className="column2"><Canvas OnSave={this.savePlan.bind(this)} 
-				NewPlan={this.createNewPlan.bind(this)}/></div>
-							
+				<div className="column1"><Plans PlanItems={this.state} RenderPlan={this.renderPlan.bind(this)}/></div>
+				<div className="column2"><Canvas OnSave={this.savePlan.bind(this)} CurrentPlan={this.state.currentPlan}/></div>							
 			</div>
 		);
 	}
