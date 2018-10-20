@@ -35,7 +35,8 @@ class Index extends Component{
 		return(
 			<div>
 				Hello Guest, This is a Flight Plan. 
-				<div className="column1"><Plans PlanItems={this.state} RenderPlan={this.renderPlan.bind(this)}/></div>
+				<div className="column1"><Plans PlanItems={this.state} 
+				RenderPlan={this.renderPlan.bind(this)}/></div>
 				<div className="column2"><Canvas OnSave={this.savePlan.bind(this)} CurrentPlan={this.state.currentPlan}/></div>							
 			</div>
 		);

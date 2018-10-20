@@ -18,10 +18,10 @@ renderPlan(val){
 	{
 		//var planItems = this.props.PlanItems;
 		
-		var planItems = this.props.PlanItems.planList;
+		var allPlans = this.props.PlanItems.planList;
 		console.log("plansjs items are: ");
-		console.log(planItems);
-		var plan = planItems.map(
+		console.log(allPlans);
+		var plan = allPlans.map(
 			item=>{
 				console.log(item);
 				return (<div><a href="#" onClick={e=>this.renderPlan(item.plan,e)}>{item.planName}</a> <br/></div>);
